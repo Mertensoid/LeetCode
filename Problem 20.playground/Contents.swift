@@ -18,33 +18,31 @@ func findStringLength(_ s: String) -> Int {
 
 func isValid(_ s: String) -> Bool {
     
-    if s[s.startIndex] == ")" ||
-        s[s.startIndex] == "]"  ||
-        s[s.startIndex] == "}"  ||
-        s[s.endIndex] == "("  ||
-        s[s.endIndex] == "["  ||
-        s[s.endIndex] == "{" {
+    var stack: [Character] = []
+    
+    for i in s.indices {
+        if let stackLast = stack.last {
+            switch s[i] {
+            case ")" where stackLast == "(":
+                stack = stack.dropLast()
+            case "}" where stackLast == "{":
+                stack = stack.dropLast()
+            case "]" where stackLast == "[":
+                stack = stack.dropLast()
+            default:
+                stack.append(s[i])
+            }
+        } else {
+            stack.append(s[i])
+            print(stack)
+        }
+    }
+    
+    if stack.isEmpty {
+        return true
+    } else {
         return false
     }
-//    if s[s.startIndex] == "(" {
-//        if let closeIndex = s.firstIndex(of: ")") {
-//            let tempString = s[s.startIndex..<s.firstIndex(of: ")"]
-//            ]
-//        }
-//
-//    }
-    var testString = s
-    var stringArray: [Character] = []
-    //for index in 0...findStringLength(testString)-2
-    
-//    while  {
-//        if testString[index] == "()" || testString[index] == "{}" || testString[index] == "{}"
-//
-//    }
-    
-
-    
-    return true
 }
 
 isValid("{[()]}(){[]}")
